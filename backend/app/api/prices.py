@@ -14,7 +14,6 @@ async def get_price(symbol: str, db: AsyncSession = Depends(get_db)):
     if data is None:
         raise HTTPException(status_code=404, detail="Пара не найдена")
 
-    # Сохраняем в БД
     record = Price(
         symbol=data["symbol"],
         price=data["price"],
@@ -32,7 +31,6 @@ def get_orderbook(symbol: str):
         raise HTTPException(status_code=404, detail="Пара не найдена")
     return data
 
-# Новый эндпоинт — история цен из БД
 @router.get("/history/{symbol}")
 async def get_history(symbol: str, db: AsyncSession = Depends(get_db)):
     result = await db.execute(

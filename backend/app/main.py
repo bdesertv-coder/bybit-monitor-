@@ -11,7 +11,6 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Bybit Monitor", lifespan=lifespan)
 
-# Это позволяет фронту обращаться к бэкенду
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

@@ -2,16 +2,13 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sess
 from sqlalchemy.orm import declarative_base
 from app.config import config
 
-# Базовый класс для всех моделей
 Base = declarative_base()
 
-# Движок для подключения к БД
 engine = create_async_engine(
     config.database_url,
-    echo=True,  # Показывает SQL-запросы в консоли (можно убрать)
+    echo=True, 
 )
 
-# Фабрика сессий
 AsyncSessionLocal = async_sessionmaker(
     engine,
     class_=AsyncSession,
