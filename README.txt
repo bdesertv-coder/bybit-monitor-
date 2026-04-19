@@ -16,7 +16,7 @@ API: Bybit API (opened)
 Полная контейнеризация через Docker
 
 Требования:
-Python 3.14+
+Python 3.10+
 Docker
 Docker Compose
 
