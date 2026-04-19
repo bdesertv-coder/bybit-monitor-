@@ -26,7 +26,7 @@
 
 1. Клонировать репозиторий
 bash
-git clone https://github.com/bdesertv-coder/bybit-monitor.git
+git clone https://github.com/bdesertv-coder/bybit-monitor-.git
 cd bybit-monitor
 
 
