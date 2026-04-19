@@ -7,7 +7,7 @@
 - Backend: Python, FastAPI, SQLAlchemy
 - Database: PostgreSQL
 - Frontend: HTML
-- Infrastructure:** Docker, Docker Compose
+- Infrastructure: Docker, Docker Compose
 - API: Bybit API
 
   Возможности
