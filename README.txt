@@ -21,25 +21,18 @@ Docker
 Docker Compose
 
 Установка:
-1) Копирование репозитория
+1. Клонировать репозиторий
 git clone https://github.com/bdesertv-coder/bybit-monitor.git
 cd bybit-monitor
-2) Создание .env файла
-Заменить your_key_here и your_key_secret_here на мвои ключи
-(на сайте необходимо выбрать валютные пары, которые хотите мониторить)
-3) Запуск
-(создание окружения)
-python -m venv .venv
-.venv\Scripts\activate
-(скачивание библиотек)
-pip install -r requirements.txt
-(запуск контейнера)
-uvicorn app.main:app --reload
-4) Открыть в браузере
-API документация: http://localhost:8000/docs
-Веб-интерфейс: открыть frontend/src/index.html
+2. Создать .env файл из шаблона и вставить свои ключи Bybit
+cp .env.example .env
+3. Запустить через Docker
+docker compose up --build
+4. Открыть в браузере
+- API документация: http://localhost:8000/docs
+- Веб-интерфейс: frontend/src/index.html
 
-Скриншот приложения (https://github.com/user-attachments/assets/6a3e26a9-62bb-4869-ba68-992b5524554e)
+![Скриншот](https://github.com/user-attachments/assets/6a3e26a9-62bb-4869-ba68-992b5524554e)
 
 Структура проекта:
 bybit-monitor/
