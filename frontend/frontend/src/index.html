@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Bybit Monitor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background: #0f0f0f;
+            color: #fff;
+        }
+        h1 { color: #f7a600; }
+        .search {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            background: #1e1e1e;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 6px;
+            flex: 1;
+        }
+        button {
+            padding: 10px 20px;
+            background: #f7a600;
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover { background: #e09500; }
+        .price-card {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid #333;
+        }
+        .price { font-size: 36px; color: #f7a600; font-weight: bold; }
+        .volume { color: #888; margin-top: 8px; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th {
+            background: #1e1e1e;
+            padding: 12px;
+            text-align: left;
+            color: #f7a600;
+        }
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #222;
+        }
+        tr:hover { background: #1a1a1a; }
+        .error { color: #ff4444; padding: 10px; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<h1>⚡ Bybit Monitor</h1>
+
+<div class="search">
+    <input type="text" id="symbol" placeholder="Введи пару: BTCUSDT" value="BTCUSDT">
+    <button onclick="fetchPrice()">Получить цену</button>
+</div>
+
+<div id="error" class="error hidden"></div>
+
+<div id="price-card" class="price-card hidden">
+    <div id="symbol-title" style="color:#888; margin-bottom:8px;"></div>
+    <div id="price" class="price"></div>
+    <div id="volume" class="volume"></div>
+</div>
+
+<div id="history-section" class="hidden">
+    <h2>📊 История цен</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Время</th>
+                <th>Пара</th>
+                <th>Цена</th>
+                <th>Объём 24ч</th>
+            </tr>
+        </thead>
+        <tbody id="history-body"></tbody>
+    </table>
+</div>
+
+<script>
+    const API = 'http://localhost:8000/api';
+
+    async function fetchPrice() {
+        const symbol = document.getElementById('symbol').value.trim().toUpperCase();
+        if (!symbol) return;
+
+        hideError();
+
+        try {
+            // Получаем текущую цену
+            const res = await fetch(`${API}/price/${symbol}`);
+            if (!res.ok) throw new Error('Пара не найдена');
+            const data = await res.json();
+
+            // Показываем карточку с ценой
+            document.getElementById('symbol-title').textContent = data.symbol;
+            document.getElementById('price').textContent = `$${data.price.toLocaleString()}`;
+            document.getElementById('volume').textContent = `Объём 24ч: ${data.volume_24h.toLocaleString()}`;
+            document.getElementById('price-card').classList.remove('hidden');
+
+            // Загружаем историю
+            fetchHistory(symbol);
+
+        } catch (e) {
+            showError(e.message);
+        }
+    }
+
+    async function fetchHistory(symbol) {
+        try {
+            const res = await fetch(`${API}/history/${symbol}`);
+            const data = await res.json();
+
+            const tbody = document.getElementById('history-body');
+            tbody.innerHTML = '';
+
+            data.forEach(row => {
+                const date = new Date(row.timestamp).toLocaleString('ru-RU');
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${date}</td>
+                        <td>${row.symbol}</td>
+                        <td>$${parseFloat(row.price).toLocaleString()}</td>
+                        <td>${row.volume_24h ? parseFloat(row.volume_24h).toLocaleString() : '—'}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById('history-section').classList.remove('hidden');
+        } catch (e) {
+            showError('Ошибка загрузки истории');
+        }
+    }
+
+    function showError(msg) {
+        const el = document.getElementById('error');
+        el.textContent = '❌ ' + msg;
+        el.classList.remove('hidden');
+    }
+
+    function hideError() {
+        document.getElementById('error').classList.add('hidden');
+    }
+
+    // Enter тоже работает
+    document.getElementById('symbol').addEventListener('keypress', e => {
+        if (e.key === 'Enter') fetchPrice();
+    });
+</script>
+
+</body>
+</html>

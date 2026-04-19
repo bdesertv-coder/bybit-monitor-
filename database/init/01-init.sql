@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS prices (
+    id SERIAL PRIMARY KEY,
+    symbol VARCHAR(20) NOT NULL,
+    price NUMERIC(20, 8) NOT NULL,
+    volume_24h NUMERIC(20, 2),
+    timestamp TIMESTAMP DEFAULT NOW()
+);

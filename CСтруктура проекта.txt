@@ -1,0 +1,52 @@
+bybit-monitor/
+│
+├── docker-compose.yml              # ← Оркестрация всех сервисов
+├── .env                            # ← Общие переменные
+├── .gitignore
+│
+├── backend/                        # ← PYTHON BACKEND
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   │
+│   └── app/
+│       ├── __init__.py
+│       ├── main.py                 # ← Точка входа FastAPI
+│       │
+│       ├── config.py               # ← Класс Config (настройки)
+│       ├── database.py             # ← Класс Database (подключение к БД)
+│       │
+│       ├── models/                 # ← SQLAlchemy модели
+│       │   ├── __init__.py
+│       │   └── price.py            # ← Класс PriceModel
+│       │
+│       ├── schemas/                # ← Pydantic схемы
+│       │   ├── __init__.py
+│       │   └── price.py            # ← Классы PriceCreate, PriceResponse
+│       │
+│       ├── services/               # ← Бизнес-логика
+│       │   ├── __init__.py
+│       │   ├── bybit_client.py     # ← Класс BybitClient
+│       │   └── price_service.py    # ← Класс PriceService
+│       │
+│       └── api/                    # ← Эндпоинты
+│           ├── __init__.py
+│           └── prices.py           # ← Класс роутов (router)
+│
+├── frontend/                       # ← GO GUI (Wails)
+│   ├── go.mod
+│   ├── go.sum
+│   ├── wails.json
+│   ├── main.go                     # ← Точка входа Go
+│   │
+│   ├── app/
+│   │   └── app.go                  # ← Класс App (логика GUI)
+│   │
+│   └── frontend/
+│       └── src/
+│           ├── index.html
+│           ├── main.js
+│           └── style.css
+│
+└── database/                       # ← POSTGRESQL
+    └── init/
+        └── 01-init.sql             # ← Создание таблиц

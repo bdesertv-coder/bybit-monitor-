@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+.env
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Go
+*.exe
+*.exe~
+frontend/build/
+frontend/frontend/dist/
+
+# Docker
+*.log
+database/backup/
+
+# OS
+.DS_Store
+Thumbs.db
