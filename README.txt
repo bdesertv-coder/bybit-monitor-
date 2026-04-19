@@ -39,7 +39,7 @@ uvicorn app.main:app --reload
 API документация: http://localhost:8000/docs
 Веб-интерфейс: открыть frontend/src/index.html
 
-Скриншот приложения (https://github.com/user-attachments/assets/ecc159f0-176f-4552-8313-e9e20144fa6a)
+Скриншот приложения (https://github.com/user-attachments/assets/6a3e26a9-62bb-4869-ba68-992b5524554e)
 
 Структура проекта:
 bybit-monitor/
