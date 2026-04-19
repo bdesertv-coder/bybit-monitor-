@@ -25,20 +25,20 @@
   Установка
 
 1. Клонировать репозиторий
-```bash
+bash
 git clone https://github.com/bdesertv-coder/bybit-monitor.git
 cd bybit-monitor
-```
+
 
 2. Создать .env файл и вставить свои ключи Bybit
-```bash
+bash
 cp .env.example .env
-```
+
 
 3. Запустить через Docker
-```bash
+bash
 docker compose up --build
-```
+
 
 4. Открыть в браузере
 - API документация: http://localhost:8000/docs
@@ -50,13 +50,13 @@ docker compose up --build
 
   Структура проекта
 
-```
+
 bybit-monitor/
 ├── backend/           # Python FastAPI бэкенд
 ├── frontend/          # Веб-интерфейс
 ├── database/          # SQL миграции
 └── docker-compose.yml
-```
+
 
   API Эндпоинты
 
